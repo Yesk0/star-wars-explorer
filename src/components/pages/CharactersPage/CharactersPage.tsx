@@ -8,9 +8,6 @@ import { setPage, setSearch } from "../../../store/slices/charactersSlice";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import IconButton from "@mui/material/IconButton";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 const CharactersPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -70,7 +67,7 @@ const CharactersPage: React.FC = () => {
 
       <SearchBar
         value={search}
-        onSearchChange={(e) => dispatch(setSearch(e.target.value))}
+        onChange={(e) => dispatch(setSearch(e.target.value))}
         showOnlyFavorites={showOnlyFavorites}
         onToggleFavorites={handleToggleFavorites}
         placeholder="Search by character name..."

@@ -3,5 +3,4 @@ export interface Planet {
   name: string;
   climate?: string;
   population?: string;
-  // Добавь нужные поля по мере необходимости
 }
