@@ -16,7 +16,7 @@ import StarshipDetail from "./StarshipDetail";
 const StarshipDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const dispatch = useDispatch<AppDispatch>();
-  const { items, loading, error } = useSelector(
+  const { items, status, error } = useSelector(
     (state: RootState) => state.starships
   );
   const [starship, setStarship] = useState<any>(null);
@@ -37,7 +37,7 @@ const StarshipDetailPage: React.FC = () => {
     }
   }, [items, id]);
 
-  if (loading) {
+  if (status === "loading") {
     return <LoadingSpinner message="Loading starship..." />;
   }
 

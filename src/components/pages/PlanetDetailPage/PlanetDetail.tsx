@@ -71,65 +71,9 @@ const PlanetDetail: React.FC<PlanetDetailProps> = ({ planet }) => {
             />
           )}
 
-          {planet.terrain && (
-            <Chip
-              label={`Terrain: ${planet.terrain}`}
-              sx={{
-                background: "rgba(255, 215, 0, 0.1)",
-                color: "#FFD700",
-                border: "1px solid #FFD700",
-                fontFamily: "Orbitron, monospace",
-                fontSize: "1rem",
-                padding: "12px",
-              }}
-            />
-          )}
-
           {planet.population && (
             <Chip
               label={`Population: ${formatPopulation(planet.population)}`}
-              sx={{
-                background: "rgba(255, 215, 0, 0.1)",
-                color: "#FFD700",
-                border: "1px solid #FFD700",
-                fontFamily: "Orbitron, monospace",
-                fontSize: "1rem",
-                padding: "12px",
-              }}
-            />
-          )}
-
-          {planet.diameter && (
-            <Chip
-              label={`Diameter: ${planet.diameter} km`}
-              sx={{
-                background: "rgba(255, 215, 0, 0.1)",
-                color: "#FFD700",
-                border: "1px solid #FFD700",
-                fontFamily: "Orbitron, monospace",
-                fontSize: "1rem",
-                padding: "12px",
-              }}
-            />
-          )}
-
-          {planet.rotation_period && (
-            <Chip
-              label={`Rotation period: ${planet.rotation_period} hours`}
-              sx={{
-                background: "rgba(255, 215, 0, 0.1)",
-                color: "#FFD700",
-                border: "1px solid #FFD700",
-                fontFamily: "Orbitron, monospace",
-                fontSize: "1rem",
-                padding: "12px",
-              }}
-            />
-          )}
-
-          {planet.orbital_period && (
-            <Chip
-              label={`Orbital period: ${planet.orbital_period} days`}
               sx={{
                 background: "rgba(255, 215, 0, 0.1)",
                 color: "#FFD700",
@@ -170,11 +114,6 @@ const PlanetDetail: React.FC<PlanetDetailProps> = ({ planet }) => {
           {planet.terrain && ` Terrain: ${planet.terrain}.`}
           {planet.population &&
             ` Population: ${formatPopulation(planet.population)}.`}
-          {planet.diameter && ` Diameter: ${planet.diameter} km.`}
-          {planet.rotation_period &&
-            ` Rotation period: ${planet.rotation_period} hours.`}
-          {planet.orbital_period &&
-            ` Orbital period: ${planet.orbital_period} days.`}
         </Typography>
       </Box>
     </Box>

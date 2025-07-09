@@ -17,7 +17,7 @@ import LoadingSpinner from "../../common/LoadingSnipper/LoadingSpinner";
 const CharacterDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const dispatch = useDispatch<AppDispatch>();
-  const { items, loading, error } = useSelector(
+  const { items, status, error } = useSelector(
     (state: RootState) => state.characters
   );
   const [character, setCharacter] = useState<any>(null);
@@ -47,7 +47,7 @@ const CharacterDetailPage: React.FC = () => {
     }
   };
 
-  if (loading) {
+  if (status === "loading") {
     return <LoadingSpinner message="Loading character..." />;
   }
 

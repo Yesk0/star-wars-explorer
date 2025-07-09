@@ -93,48 +93,6 @@ const StarshipDetail: React.FC<StarshipDetailProps> = ({ starship }) => {
               }}
             />
           )}
-
-          {starship.length && (
-            <Chip
-              label={`Length: ${starship.length} m`}
-              sx={{
-                background: "rgba(255, 215, 0, 0.1)",
-                color: "#FFD700",
-                border: "1px solid #FFD700",
-                fontFamily: "Orbitron, monospace",
-                fontSize: "1rem",
-                padding: "12px",
-              }}
-            />
-          )}
-
-          {starship.crew && (
-            <Chip
-              label={`Crew: ${starship.crew}`}
-              sx={{
-                background: "rgba(255, 215, 0, 0.1)",
-                color: "#FFD700",
-                border: "1px solid #FFD700",
-                fontFamily: "Orbitron, monospace",
-                fontSize: "1rem",
-                padding: "12px",
-              }}
-            />
-          )}
-
-          {starship.passengers && (
-            <Chip
-              label={`Passengers: ${starship.passengers}`}
-              sx={{
-                background: "rgba(255, 215, 0, 0.1)",
-                color: "#FFD700",
-                border: "1px solid #FFD700",
-                fontFamily: "Orbitron, monospace",
-                fontSize: "1rem",
-                padding: "12px",
-              }}
-            />
-          )}
         </Box>
 
         <Typography
@@ -165,9 +123,6 @@ const StarshipDetail: React.FC<StarshipDetailProps> = ({ starship }) => {
           {starship.starship_class && ` Class: ${starship.starship_class}.`}
           {starship.max_atmosphering_speed &&
             ` Speed: ${formatSpeed(starship.max_atmosphering_speed)}.`}
-          {starship.length && ` Length: ${starship.length} m.`}
-          {starship.crew && ` Crew: ${starship.crew}.`}
-          {starship.passengers && ` Passengers: ${starship.passengers}.`}
         </Typography>
       </Box>
     </Box>

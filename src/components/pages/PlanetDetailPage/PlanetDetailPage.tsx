@@ -16,8 +16,8 @@ import PlanetDetail from "./PlanetDetail";
 const PlanetDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const dispatch = useDispatch<AppDispatch>();
-  const { items, loading, error } = useSelector(
-    (state: RootState) => state.planets
+  const { items, status, error } = useSelector(
+    (state: RootState) => state.starships
   );
   const [planet, setPlanet] = useState<any>(null);
 
@@ -37,8 +37,8 @@ const PlanetDetailPage: React.FC = () => {
     }
   }, [items, id]);
 
-  if (loading) {
-    return <LoadingSpinner message="Loading planet..." />;
+  if (status === "loading") {
+    return <LoadingSpinner message="Loading starship..." />;
   }
 
   if (error) {

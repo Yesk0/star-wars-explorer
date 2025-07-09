@@ -13,7 +13,7 @@ interface CharacterListProps {
 
 const CharacterList: React.FC<CharacterListProps> = ({ showOnlyFavorites }) => {
   const dispatch = useDispatch<AppDispatch>();
-  const { filteredItems, status, error, page } = useSelector(
+  const { filteredItems, status, error } = useSelector(
     (state: RootState) => state.characters
   );
   const favorites = useSelector((state: RootState) => state.favorites.items);

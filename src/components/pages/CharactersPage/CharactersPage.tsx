@@ -68,8 +68,6 @@ const CharactersPage: React.FC = () => {
       <SearchBar
         value={search}
         onChange={(e) => dispatch(setSearch(e.target.value))}
-        showOnlyFavorites={showOnlyFavorites}
-        onToggleFavorites={handleToggleFavorites}
         placeholder="Search by character name..."
       />
 
