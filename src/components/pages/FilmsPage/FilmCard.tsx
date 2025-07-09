@@ -6,37 +6,12 @@ import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 import Avatar from "@mui/material/Avatar";
 import type { Film } from "../../../types/film";
-import IconButton from "@mui/material/IconButton";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { useDispatch, useSelector } from "react-redux";
-import type { RootState } from "../../../store";
-import {
-  addFavorite,
-  removeFavorite,
-} from "../../../store/slices/favoritesSlice";
 
 interface FilmCardProps {
   film: Film;
 }
 
 const FilmCard: React.FC<FilmCardProps> = ({ film }) => {
-  const dispatch = useDispatch();
-  const favorites = useSelector((state: RootState) => state.favorites.items);
-  const isFavorite = favorites.some(
-    (fav) => fav.type === "film" && fav.id === film.id
-  );
-
-  const handleFavoriteClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (isFavorite) {
-      dispatch(removeFavorite({ type: "film", id: film.id }));
-    } else {
-      dispatch(addFavorite({ type: "film", id: film.id, data: film }));
-    }
-  };
-
   const getFilmImage = (title: string) => {
     const imageName = title.toLowerCase().replace(/\s+/g, "-");
     return `/src/assets/images/films/${imageName}.jpeg`;
@@ -61,26 +36,6 @@ const FilmCard: React.FC<FilmCardProps> = ({ film }) => {
         },
       }}
     >
-      {/* Heart icon in top right */}
-      <IconButton
-        onClick={handleFavoriteClick}
-        sx={{
-          position: "absolute",
-          top: 8,
-          right: 8,
-          zIndex: 2,
-          background: "rgba(0,0,0,0.3)",
-          borderRadius: "50%",
-          "&:hover": { background: "rgba(255,255,255,0.1)" },
-        }}
-        aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
-      >
-        {isFavorite ? (
-          <FavoriteIcon sx={{ color: "#e53935" }} />
-        ) : (
-          <FavoriteBorderIcon sx={{ color: "#FFD700" }} />
-        )}
-      </IconButton>
       <CardContent className="p-6">
         <Box className="flex flex-col items-center text-center">
           <Avatar

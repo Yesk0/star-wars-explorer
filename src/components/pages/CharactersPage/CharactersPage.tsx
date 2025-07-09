@@ -14,20 +14,9 @@ const CharactersPage: React.FC = () => {
   const { page, count, search } = useSelector(
     (state: RootState) => state.characters
   );
-  const [showOnlyFavorites, setShowOnlyFavorites] = useState(false);
+  const [showOnlyFavorites] = useState(false);
   const pageSize = 10;
   const pageCount = Math.ceil(count / pageSize);
-
-  // Сброс поиска при включении фильтра избранного
-  const handleToggleFavorites = () => {
-    setShowOnlyFavorites((prev) => {
-      const next = !prev;
-      if (next) {
-        dispatch(setSearch(""));
-      }
-      return next;
-    });
-  };
 
   return (
     <Container maxWidth="xl" sx={{ py: 4 }}>
