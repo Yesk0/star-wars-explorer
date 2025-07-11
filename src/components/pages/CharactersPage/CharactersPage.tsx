@@ -2,21 +2,27 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState, AppDispatch } from "../../../store";
 import SearchBar from "../../common/SearchBar/SearchBar";
-import Pagination from "../../common/Pagination/Pagination";
 import CharacterList from "./CharacterList";
-import { setPage, setSearch } from "../../../store/slices/charactersSlice";
+import { setSearch } from "../../../store/slices/charactersSlice";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import FavoriteToggleButton from "../../common/FavoriteToggleButton/FavoriteToggleButton";
 
 const CharactersPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { page, count, search } = useSelector(
-    (state: RootState) => state.characters
-  );
-  const [showOnlyFavorites] = useState(false);
-  const pageSize = 10;
-  const pageCount = Math.ceil(count / pageSize);
+  const { search } = useSelector((state: RootState) => state.characters);
+  const [showOnlyFavorites, setShowOnlyFavorites] = useState(false);
+
+  const handleFavoriteToggle = () => {
+    setShowOnlyFavorites((prev) => {
+      const next = !prev;
+      if (next) {
+        dispatch(setSearch(""));
+      }
+      return next;
+    });
+  };
 
   return (
     <Container maxWidth="xl" sx={{ py: 4 }}>
@@ -53,24 +59,21 @@ const CharactersPage: React.FC = () => {
           Explore Star Wars characters
         </Typography>
       </Box>
-
-      <SearchBar
-        value={search}
-        onChange={(e) => dispatch(setSearch(e.target.value))}
-        placeholder="Search by character name..."
-      />
-
-      <CharacterList showOnlyFavorites={showOnlyFavorites} />
-
-      {pageCount > 1 && !showOnlyFavorites && (
-        <Box className="mt-8 flex justify-center">
-          <Pagination
-            count={pageCount}
-            page={page}
-            onChange={(_, value) => dispatch(setPage(value))}
+      <Box className="w-full flex justify-center items-center mb-6">
+        <Box className="flex items-center gap-2 max-w-xl w-full">
+          <SearchBar
+            value={search}
+            onChange={(e) => dispatch(setSearch(e.target.value))}
+            placeholder="Search by character name..."
+          />
+          <FavoriteToggleButton
+            isActive={showOnlyFavorites}
+            onToggle={handleFavoriteToggle}
+            ariaLabel="Показать только избранное"
           />
         </Box>
-      )}
+      </Box>
+      <CharacterList showOnlyFavorites={showOnlyFavorites} />
     </Container>
   );
 };

@@ -45,7 +45,6 @@ const filmsSlice = createSlice({
     setSearch(state, action: PayloadAction<string>) {
       state.search = action.payload;
       state.page = 1;
-      // Client-side filtering
       if (action.payload.trim() === "") {
         state.filteredItems = state.items;
         state.count = state.items.length;
@@ -67,7 +66,6 @@ const filmsSlice = createSlice({
       .addCase(loadFilms.fulfilled, (state, action) => {
         state.status = "success";
         state.items = action.payload.results;
-        // Apply search to new data
         if (state.search.trim() === "") {
           state.filteredItems = action.payload.results;
           state.count = action.payload.count;

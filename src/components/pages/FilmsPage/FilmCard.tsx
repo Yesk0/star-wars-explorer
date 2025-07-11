@@ -29,6 +29,13 @@ const FilmCard: React.FC<FilmCardProps> = ({ film }) => {
         transition: "all 0.3s ease",
         textDecoration: "none",
         position: "relative",
+        minWidth: 350,
+        maxWidth: 350,
+        minHeight: 380,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "flex-start",
+        alignItems: "stretch",
         "&:hover": {
           transform: "translateY(-5px)",
           boxShadow: "0 12px 40px rgba(255, 215, 0, 0.2)",

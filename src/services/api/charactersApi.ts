@@ -23,7 +23,6 @@ export const fetchCharacters = async (
       params: { page, search },
     });
 
-    // swapi.info возвращает массив напрямую, а не объект с results
     if (Array.isArray(response.data)) {
       return {
         count: response.data.length,
@@ -37,7 +36,6 @@ export const fetchCharacters = async (
       };
     }
 
-    // Если это объект с results (как ожидалось)
     if (response.data.results) {
       return {
         count: response.data.count || response.data.results.length,

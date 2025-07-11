@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-/* Star Wars Theme Variables */
 :root {
   --sw-gold: #ffd700;
   --sw-dark-gold: #b8860b;
@@ -13,10 +12,8 @@
   --sw-blue: #0066cc;
 }
 
-/* Custom Star Wars Font */
 @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap");
 
-/* Global Styles */
 body {
   font-family: "Orbitron", monospace;
   background: linear-gradient(
@@ -29,7 +26,6 @@ body {
   min-height: 100vh;
 }
 
-/* Star Wars Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -47,7 +43,6 @@ body {
   background: var(--sw-dark-gold);
 }
 
-/* Star Wars Glow Effects */
 .sw-glow {
   text-shadow: 0 0 10px var(--sw-gold), 0 0 20px var(--sw-gold),
     0 0 30px var(--sw-gold);
@@ -63,7 +58,6 @@ body {
     0 0 30px var(--sw-blue);
 }
 
-/* Star Wars Button Styles */
 .sw-button {
   background: linear-gradient(45deg, var(--sw-gold), var(--sw-dark-gold));
   border: 2px solid var(--sw-gold);
@@ -81,7 +75,6 @@ body {
   transform: translateY(-2px);
 }
 
-/* Star Wars Card Styles */
 .sw-card {
   background: linear-gradient(145deg, var(--sw-gray), var(--sw-light-gray));
   border: 1px solid var(--sw-gold);
@@ -97,7 +90,6 @@ body {
   border-color: var(--sw-white);
 }
 
-/* Star Wars Navigation */
 .sw-nav {
   background: linear-gradient(90deg, var(--sw-black), var(--sw-dark-gray));
   border-bottom: 2px solid var(--sw-gold);
@@ -133,7 +125,6 @@ body {
   width: 100%;
 }
 
-/* Star Wars Loading Animation */
 @keyframes sw-pulse {
   0%,
   100% {
@@ -150,7 +141,6 @@ body {
   animation: sw-pulse 2s infinite;
 }
 
-/* Star Wars Grid Layout */
 .sw-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -158,7 +148,6 @@ body {
   padding: 2rem 0;
 }
 
-/* Star Wars Typography */
 .sw-title {
   font-family: "Orbitron", monospace;
   font-weight: 900;
@@ -178,7 +167,6 @@ body {
   color: var(--sw-gold);
 }
 
-/* Star Wars Search Bar */
 .sw-search {
   background: rgba(255, 255, 255, 0.1);
   border: 2px solid var(--sw-gold);

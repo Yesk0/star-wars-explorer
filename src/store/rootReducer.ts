@@ -11,7 +11,6 @@ const rootReducer = combineReducers({
   starships: starshipsReducer,
   films: filmsReducer,
   favorites: favoritesReducer,
-  // Добавляй другие редьюсеры по мере необходимости
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

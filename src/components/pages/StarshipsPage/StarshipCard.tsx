@@ -47,11 +47,9 @@ const StarshipCard: React.FC<StarshipCardProps> = ({ starship }) => {
 
   const formatSpeed = (speed: string) => {
     if (!speed || speed === "unknown" || speed === "n/a") return "Unknown";
-    // If number, add km/h
     return isNaN(Number(speed)) ? speed : `${speed} km/h`;
   };
 
-  // New id for link: if id starts with 'starship-', remove this prefix
   const getStarshipLinkId = (id: string, name: string) => {
     if (id && id.startsWith("starship-")) {
       return id.replace("starship-", "");
@@ -72,13 +70,14 @@ const StarshipCard: React.FC<StarshipCardProps> = ({ starship }) => {
         WebkitBackdropFilter: "blur(10px)",
         transition: "all 0.3s ease",
         textDecoration: "none",
+        position: "relative",
+        minWidth: 350,
         maxWidth: 350,
         minHeight: 380,
         display: "flex",
         flexDirection: "column",
         justifyContent: "flex-start",
-        overflow: "hidden",
-        position: "relative",
+        alignItems: "stretch",
         "&:hover": {
           transform: "translateY(-5px)",
           boxShadow: "0 12px 40px rgba(255, 215, 0, 0.2)",

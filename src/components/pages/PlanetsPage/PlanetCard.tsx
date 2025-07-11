@@ -75,6 +75,13 @@ const PlanetCard: React.FC<PlanetCardProps> = ({ planet }) => {
         transition: "all 0.3s ease",
         textDecoration: "none",
         position: "relative",
+        minWidth: 350,
+        maxWidth: 350,
+        minHeight: 380,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "flex-start",
+        alignItems: "stretch",
         "&:hover": {
           transform: "translateY(-5px)",
           boxShadow: "0 12px 40px rgba(255, 215, 0, 0.2)",
@@ -82,7 +89,7 @@ const PlanetCard: React.FC<PlanetCardProps> = ({ planet }) => {
         },
       }}
     >
-      {/* Heart icon in top right */}
+      
       <IconButton
         onClick={handleFavoriteClick}
         sx={{

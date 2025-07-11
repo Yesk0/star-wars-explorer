@@ -1,21 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState, AppDispatch } from "../../../store";
 import SearchBar from "../../common/SearchBar/SearchBar";
-import Pagination from "../../common/Pagination/Pagination";
 import FilmList from "./FilmList";
-import { setPage, setSearch } from "../../../store/slices/filmsSlice";
+import { setSearch } from "../../../store/slices/filmsSlice";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import FavoriteToggleButton from "../../common/FavoriteToggleButton/FavoriteToggleButton";
 
 const FilmsPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { page, count, search } = useSelector(
-    (state: RootState) => state.films
-  );
-  const pageSize = 10;
-  const pageCount = Math.ceil(count / pageSize);
+  const { search } = useSelector((state: RootState) => state.films);
+  const [showOnlyFavorites, setShowOnlyFavorites] = useState(false);
+
+  const handleFavoriteToggle = () => {
+    setShowOnlyFavorites((prev) => {
+      const next = !prev;
+      if (next) {
+        dispatch(setSearch(""));
+      }
+      return next;
+    });
+  };
 
   return (
     <Container maxWidth="xl" sx={{ py: 4 }}>
@@ -52,24 +59,21 @@ const FilmsPage: React.FC = () => {
           Explore the Star Wars saga
         </Typography>
       </Box>
-
-      <SearchBar
-        placeholder="Search by film title..."
-        value={search}
-        onChange={(e) => dispatch(setSearch(e.target.value))}
-      />
-
-      <FilmList />
-
-      {pageCount > 1 && (
-        <Box className="mt-8 flex justify-center">
-          <Pagination
-            count={pageCount}
-            page={page}
-            onChange={(_, value) => dispatch(setPage(value))}
+      <Box className="w-full flex justify-center items-center mb-6">
+        <Box className="flex items-center gap-2 max-w-xl w-full">
+          <SearchBar
+            value={search}
+            onChange={(e) => dispatch(setSearch(e.target.value))}
+            placeholder="Search by film title..."
+          />
+          <FavoriteToggleButton
+            isActive={showOnlyFavorites}
+            onToggle={handleFavoriteToggle}
+            ariaLabel="Показать только избранное"
           />
         </Box>
-      )}
+      </Box>
+      <FilmList showOnlyFavorites={showOnlyFavorites} />
     </Container>
   );
 };

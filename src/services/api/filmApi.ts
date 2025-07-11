@@ -12,7 +12,6 @@ export const fetchFilms = async (): Promise<FetchFilmsResponse> => {
   try {
     const response = await axios.get(BASE_URL);
 
-    // swapi.info может возвращать массив напрямую
     if (Array.isArray(response.data)) {
       return {
         count: response.data.length,
@@ -26,7 +25,6 @@ export const fetchFilms = async (): Promise<FetchFilmsResponse> => {
       };
     }
 
-    // Если это объект с results (как ожидалось)
     if (response.data.results) {
       return {
         count: response.data.count || response.data.results.length,

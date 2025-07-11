@@ -1,37 +1,37 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState, AppDispatch } from "../../../store";
 import SearchBar from "../../common/SearchBar/SearchBar";
-import Pagination from "../../common/Pagination/Pagination";
 import CharacterList from "../CharactersPage/CharacterList";
 import {
-  setPage,
   setSearch,
   loadCharacters,
 } from "../../../store/slices/charactersSlice";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import FavoriteToggleButton from "../../common/FavoriteToggleButton/FavoriteToggleButton";
 
 const HomePage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { page, count, search } = useSelector(
+  const { search } = useSelector(
     (state: RootState) => state.characters
   );
-  const pageSize = 10;
-  const pageCount = Math.ceil(count / pageSize);
+  const [showOnlyFavorites, setShowOnlyFavorites] = useState(false);
 
-  // Загрузка данных при монтировании
   useEffect(() => {
     dispatch(loadCharacters({ page: 1, search: "" }));
-  }, []);
+  }, [dispatch]);
 
-  // Загрузка данных при изменении страницы (но не поиска)
-  useEffect(() => {
-    if (page > 0) {
-      dispatch(loadCharacters({ page, search: "" }));
-    }
-  }, [dispatch, page]);
+  const handleFavoriteToggle = () => {
+    setShowOnlyFavorites((prev) => {
+      const next = !prev;
+      if (next) {
+        dispatch(setSearch(""));
+      }
+      return next;
+    });
+  };
 
   return (
     <Container maxWidth="xl" sx={{ py: 4 }}>
@@ -68,26 +68,21 @@ const HomePage: React.FC = () => {
           Explore Star Wars characters
         </Typography>
       </Box>
-
-      <Box className="mb-6">
-        <SearchBar
-          placeholder="Search by character name..."
-          value={search}
-          onChange={(e) => dispatch(setSearch(e.target.value))}
-        />
-      </Box>
-
-      <CharacterList />
-
-      {pageCount > 1 && (
-        <Box className="mt-8 flex justify-center">
-          <Pagination
-            count={pageCount}
-            page={page}
-            onChange={(_, value) => dispatch(setPage(value))}
+      <Box className="w-full flex justify-center items-center mb-6">
+        <Box className="flex items-center gap-2 max-w-xl w-full">
+          <SearchBar
+            value={search}
+            onChange={(e) => dispatch(setSearch(e.target.value))}
+            placeholder="Search by character name..."
+          />
+          <FavoriteToggleButton
+            isActive={showOnlyFavorites}
+            onToggle={handleFavoriteToggle}
+            ariaLabel="Показать только избранное"
           />
         </Box>
-      )}
+      </Box>
+      <CharacterList showOnlyFavorites={showOnlyFavorites} />
     </Container>
   );
 };

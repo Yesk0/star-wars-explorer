@@ -48,7 +48,6 @@ const starshipsSlice = createSlice({
     setSearch(state, action: PayloadAction<string>) {
       state.search = action.payload;
       state.page = 1;
-      // Клиентская фильтрация
       if (action.payload.trim() === "") {
         state.filteredItems = state.items;
         state.count = state.items.length;

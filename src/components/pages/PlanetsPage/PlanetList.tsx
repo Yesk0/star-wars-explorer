@@ -7,17 +7,30 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
-const PlanetList: React.FC = () => {
+interface PlanetListProps {
+  showOnlyFavorites?: boolean;
+}
+
+const PlanetList: React.FC<PlanetListProps> = ({ showOnlyFavorites }) => {
   const dispatch = useDispatch<AppDispatch>();
   const { filteredItems, status, error, page } = useSelector(
     (state: RootState) => state.planets
   );
+  const favorites = useSelector((state: RootState) => state.favorites.items);
 
   useEffect(() => {
     if (status === "idle") {
       dispatch(loadPlanets({ page, search: "" }));
     }
   }, [dispatch, status, page]);
+
+  let itemsToShow = filteredItems;
+  if (showOnlyFavorites) {
+    const favIds = favorites
+      .filter((f) => f.type === "planet")
+      .map((f) => f.id);
+    itemsToShow = filteredItems.filter((item) => favIds.includes(item.id));
+  }
 
   if (status === "loading" || status === "idle") {
     return (
@@ -77,7 +90,35 @@ const PlanetList: React.FC = () => {
     );
   }
 
-  if (status === "success" && (!filteredItems || !filteredItems.length)) {
+  if (showOnlyFavorites && (!itemsToShow || !itemsToShow.length)) {
+    return (
+      <Box className="text-center py-10">
+        <Typography
+          variant="h6"
+          sx={{
+            fontFamily: "Orbitron, monospace",
+            color: "#FFD700",
+            textTransform: "uppercase",
+            letterSpacing: "1px",
+          }}
+        >
+          NO FAVORITES FOUND
+        </Typography>
+        <Typography
+          variant="body2"
+          sx={{
+            fontFamily: "Orbitron, monospace",
+            color: "rgba(255, 255, 255, 0.6)",
+            marginTop: "1rem",
+          }}
+        >
+          Add planets to favorites by clicking the heart icon on a card.
+        </Typography>
+      </Box>
+    );
+  }
+
+  if (status === "success" && (!itemsToShow || !itemsToShow.length)) {
     return (
       <Box className="text-center py-10">
         <Typography
@@ -115,7 +156,7 @@ const PlanetList: React.FC = () => {
         padding: "2rem 0",
       }}
     >
-      {filteredItems.map((planet) => (
+      {itemsToShow.map((planet) => (
         <PlanetCard key={planet.id || planet.name} planet={planet} />
       ))}
     </Box>

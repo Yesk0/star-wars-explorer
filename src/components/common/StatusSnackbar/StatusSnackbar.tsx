@@ -25,7 +25,6 @@ const StatusSnackbar: React.FC = () => {
   const films = useSelector((state: RootState) => state.films);
   const location = useLocation();
 
-  // Приоритет: error > loading > success > idle
   const notifications = [
     { ...characters, label: "Characters" },
     { ...planets, label: "Planets" },
@@ -33,7 +32,6 @@ const StatusSnackbar: React.FC = () => {
     { ...films, label: "Films" },
   ];
 
-  // Определяем активный раздел по pathname
   let active;
   if (location.pathname.startsWith("/planets")) active = notifications[1];
   else if (location.pathname.startsWith("/starships"))
@@ -46,7 +44,6 @@ const StatusSnackbar: React.FC = () => {
   const [lastLabel, setLastLabel] = useState<string | null>(null);
   const [lastPath, setLastPath] = useState<string>(location.pathname);
 
-  // Показывать уведомление при каждом изменении статуса или pathname
   useEffect(() => {
     if (
       active &&

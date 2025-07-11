@@ -12,7 +12,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
   placeholder,
 }) => {
   return (
-    <div className="w-full flex justify-center">
+    <div className="w-full flex justify-center items-center gap-2">
       <input
         type="text"
         value={value}

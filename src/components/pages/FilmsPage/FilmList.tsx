@@ -7,17 +7,28 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
-const FilmList: React.FC = () => {
+interface FilmListProps {
+  showOnlyFavorites?: boolean;
+}
+
+const FilmList: React.FC<FilmListProps> = ({ showOnlyFavorites }) => {
   const dispatch = useDispatch<AppDispatch>();
   const { filteredItems, status, error } = useSelector(
     (state: RootState) => state.films
   );
+  const favorites = useSelector((state: RootState) => state.favorites.items);
 
   useEffect(() => {
     if (status === "idle") {
       dispatch(loadFilms());
     }
   }, [dispatch, status]);
+
+  let itemsToShow = filteredItems;
+  if (showOnlyFavorites) {
+    const favIds = favorites.filter((f) => f.type === "film").map((f) => f.id);
+    itemsToShow = filteredItems.filter((item) => favIds.includes(item.id));
+  }
 
   if (status === "loading" || status === "idle") {
     return (
@@ -77,7 +88,35 @@ const FilmList: React.FC = () => {
     );
   }
 
-  if (status === "success" && (!filteredItems || !filteredItems.length)) {
+  if (showOnlyFavorites && (!itemsToShow || !itemsToShow.length)) {
+    return (
+      <Box className="text-center py-10">
+        <Typography
+          variant="h6"
+          sx={{
+            fontFamily: "Orbitron, monospace",
+            color: "#FFD700",
+            textTransform: "uppercase",
+            letterSpacing: "1px",
+          }}
+        >
+          NO FAVORITES FOUND
+        </Typography>
+        <Typography
+          variant="body2"
+          sx={{
+            fontFamily: "Orbitron, monospace",
+            color: "rgba(255, 255, 255, 0.6)",
+            marginTop: "1rem",
+          }}
+        >
+          Add films to favorites by clicking the heart icon on a card.
+        </Typography>
+      </Box>
+    );
+  }
+
+  if (status === "success" && (!itemsToShow || !itemsToShow.length)) {
     return (
       <Box className="text-center py-10">
         <Typography
@@ -115,7 +154,7 @@ const FilmList: React.FC = () => {
         padding: "2rem 0",
       }}
     >
-      {filteredItems.map((film) => (
+      {itemsToShow.map((film) => (
         <FilmCard key={film.id || film.title} film={film} />
       ))}
     </Box>

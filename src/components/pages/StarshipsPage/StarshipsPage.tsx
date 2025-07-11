@@ -1,21 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState, AppDispatch } from "../../../store";
 import SearchBar from "../../common/SearchBar/SearchBar";
-import Pagination from "../../common/Pagination/Pagination";
 import StarshipList from "./StarshipList";
-import { setPage, setSearch } from "../../../store/slices/starshipsSlice";
+import { setSearch } from "../../../store/slices/starshipsSlice";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import FavoriteToggleButton from "../../common/FavoriteToggleButton/FavoriteToggleButton";
 
 const StarshipsPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { page, count, search } = useSelector(
-    (state: RootState) => state.starships
-  );
-  const pageSize = 10;
-  const pageCount = Math.ceil(count / pageSize);
+  const { search } = useSelector((state: RootState) => state.starships);
+  const [showOnlyFavorites, setShowOnlyFavorites] = useState(false);
+
+  const handleFavoriteToggle = () => {
+    setShowOnlyFavorites((prev) => {
+      const next = !prev;
+      if (next) {
+        dispatch(setSearch(""));
+      }
+      return next;
+    });
+  };
 
   return (
     <Container maxWidth="xl" sx={{ py: 4 }}>
@@ -52,24 +59,21 @@ const StarshipsPage: React.FC = () => {
           Explore legendary ships of the Star Wars universe
         </Typography>
       </Box>
-
-      <SearchBar
-        placeholder="Search by starship name..."
-        value={search}
-        onChange={(e) => dispatch(setSearch(e.target.value))}
-      />
-
-      <StarshipList />
-
-      {pageCount > 1 && (
-        <Box className="mt-8 flex justify-center">
-          <Pagination
-            count={pageCount}
-            page={page}
-            onChange={(_, value) => dispatch(setPage(value))}
+      <Box className="w-full flex justify-center items-center mb-6">
+        <Box className="flex items-center gap-2 max-w-xl w-full">
+          <SearchBar
+            value={search}
+            onChange={(e) => dispatch(setSearch(e.target.value))}
+            placeholder="Search by starship name..."
+          />
+          <FavoriteToggleButton
+            isActive={showOnlyFavorites}
+            onToggle={handleFavoriteToggle}
+            ariaLabel="Показать только избранное"
           />
         </Box>
-      )}
+      </Box>
+      <StarshipList showOnlyFavorites={showOnlyFavorites} />
     </Container>
   );
 };
