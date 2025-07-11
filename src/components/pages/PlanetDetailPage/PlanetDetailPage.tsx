@@ -17,7 +17,7 @@ const PlanetDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const dispatch = useDispatch<AppDispatch>();
   const { items, status, error } = useSelector(
-    (state: RootState) => state.starships
+    (state: RootState) => state.planets
   );
   const [planet, setPlanet] = useState<any>(null);
 
