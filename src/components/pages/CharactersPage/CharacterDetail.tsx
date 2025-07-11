@@ -16,7 +16,7 @@ const CharacterDetail: React.FC<CharacterDetailProps> = ({ character }) => {
 
   const getCharacterImage = (name: string) => {
     const imageName = name.toLowerCase().replace(/\s+/g, "-");
-    return `/src/assets/images/characters/${imageName}.jpeg`;
+    return `/images/characters/${imageName}.jpeg`;
   };
 
   const getGenderLabel = (gender: string) => {

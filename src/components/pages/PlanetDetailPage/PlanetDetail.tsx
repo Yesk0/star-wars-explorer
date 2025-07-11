@@ -12,7 +12,7 @@ interface PlanetDetailProps {
 const PlanetDetail: React.FC<PlanetDetailProps> = ({ planet }) => {
   const getPlanetImage = (name: string) => {
     const imageName = name.toLowerCase().replace(/\s+/g, "-");
-    return `/src/assets/images/planets/${imageName}.jpeg`;
+    return `/images/planets/${imageName}.jpeg`;
   };
 
   const formatPopulation = (population: string) => {

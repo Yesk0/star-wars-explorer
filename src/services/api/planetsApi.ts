@@ -29,7 +29,7 @@ export const fetchPlanets = async (
         results: response.data.map((planet: any, index: number) => ({
           ...planet,
           id: planet.id || `planet-${index + 1}`,
-          image: `/src/assets/images/planets/${planet.name
+          image: `/images/planets/${planet.name
             .toLowerCase()
             .replace(/\s+/g, "-")}.jpeg`,
         })),
@@ -42,7 +42,7 @@ export const fetchPlanets = async (
         results: response.data.results.map((planet: any, index: number) => ({
           ...planet,
           id: planet.id || `planet-${index + 1}`,
-          image: `/src/assets/images/planets/${planet.name
+          image: `/images/planets/${planet.name
             .toLowerCase()
             .replace(/\s+/g, "-")}.jpeg`,
         })),

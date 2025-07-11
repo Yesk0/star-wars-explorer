@@ -14,7 +14,7 @@ interface FilmCardProps {
 const FilmCard: React.FC<FilmCardProps> = ({ film }) => {
   const getFilmImage = (title: string) => {
     const imageName = title.toLowerCase().replace(/\s+/g, "-");
-    return `/src/assets/images/films/${imageName}.jpeg`;
+    return `/images/films/${imageName}.jpeg`;
   };
 
   return (

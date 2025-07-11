@@ -29,7 +29,7 @@ export const fetchCharacters = async (
         results: response.data.map((char: any, index: number) => ({
           ...char,
           id: char.id || `char-${index + 1}`,
-          image: `/src/assets/images/characters/${char.name
+          image: `/images/characters/${char.name
             .toLowerCase()
             .replace(/\s+/g, "-")}.jpeg`,
         })),
@@ -42,7 +42,7 @@ export const fetchCharacters = async (
         results: response.data.results.map((char: any, index: number) => ({
           ...char,
           id: char.id || `char-${index + 1}`,
-          image: `/src/assets/images/characters/${char.name
+          image: `/images/characters/${char.name
             .toLowerCase()
             .replace(/\s+/g, "-")}.jpeg`,
         })),

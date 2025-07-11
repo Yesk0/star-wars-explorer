@@ -12,7 +12,7 @@ interface StarshipDetailProps {
 const StarshipDetail: React.FC<StarshipDetailProps> = ({ starship }) => {
   const getStarshipImage = (name: string) => {
     const imageName = name.toLowerCase().replace(/\s+/g, "-");
-    return `/src/assets/images/starships/${imageName}.jpeg`;
+    return `/images/starships/${imageName}.jpeg`;
   };
 
   const formatSpeed = (speed: string) => {

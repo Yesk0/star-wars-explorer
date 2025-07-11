@@ -40,7 +40,7 @@ const PlanetCard: React.FC<PlanetCardProps> = ({ planet }) => {
 
   const getPlanetImage = (name: string) => {
     const imageName = name.toLowerCase().replace(/\s+/g, "-");
-    return `/src/assets/images/planets/${imageName}.jpeg`;
+    return `/images/planets/${imageName}.jpeg`;
   };
 
   const formatPopulation = (population: string) => {
@@ -89,7 +89,6 @@ const PlanetCard: React.FC<PlanetCardProps> = ({ planet }) => {
         },
       }}
     >
-      
       <IconButton
         onClick={handleFavoriteClick}
         sx={{

@@ -41,9 +41,9 @@ const CharacterDetailPage: React.FC = () => {
   const getCharacterImage = (name: string) => {
     const imageName = name.toLowerCase().replace(/\s+/g, "-");
     try {
-      return `/src/assets/images/characters/${imageName}.jpeg`;
+      return `/images/characters/${imageName}.jpeg`;
     } catch {
-      return "/src/assets/images/characters/luke-skywalker.jpeg";
+      return "/images/characters/luke-skywalker.jpeg";
     }
   };
 

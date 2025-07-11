@@ -42,7 +42,7 @@ const CharacterCard: React.FC<CharacterCardProps> = ({ character }) => {
 
   const getCharacterImage = (name: string) => {
     const imageName = name.toLowerCase().replace(/\s+/g, "-");
-    return `/src/assets/images/characters/${imageName}.jpeg`;
+    return `/images/characters/${imageName}.jpeg`;
   };
 
   const getInitials = (name: string) => {
@@ -103,7 +103,6 @@ const CharacterCard: React.FC<CharacterCardProps> = ({ character }) => {
         },
       }}
     >
-
       <IconButton
         onClick={handleFavoriteClick}
         sx={{

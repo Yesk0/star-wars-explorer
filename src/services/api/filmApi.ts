@@ -18,7 +18,7 @@ export const fetchFilms = async (): Promise<FetchFilmsResponse> => {
         results: response.data.map((film: any, index: number) => ({
           ...film,
           id: film.id || `film-${index + 1}`,
-          image: `/src/assets/images/films/${film.title
+          image: `/images/films/${film.title
             .toLowerCase()
             .replace(/\s+/g, "-")}.jpeg`,
         })),
@@ -31,7 +31,7 @@ export const fetchFilms = async (): Promise<FetchFilmsResponse> => {
         results: response.data.results.map((film: any, index: number) => ({
           ...film,
           id: film.id || `film-${index + 1}`,
-          image: `/src/assets/images/films/${film.title
+          image: `/images/films/${film.title
             .toLowerCase()
             .replace(/\s+/g, "-")}.jpeg`,
         })),

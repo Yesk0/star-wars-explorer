@@ -29,7 +29,7 @@ export const fetchStarships = async (
         results: response.data.map((starship: any, index: number) => ({
           ...starship,
           id: starship.id || `starship-${index + 1}`,
-          image: `/src/assets/images/starships/${starship.name
+          image: `/images/starships/${starship.name
             .toLowerCase()
             .replace(/\s+/g, "-")}.jpeg`,
         })),
@@ -42,7 +42,7 @@ export const fetchStarships = async (
         results: response.data.results.map((starship: any, index: number) => ({
           ...starship,
           id: starship.id || `starship-${index + 1}`,
-          image: `/src/assets/images/starships/${starship.name
+          image: `/images/starships/${starship.name
             .toLowerCase()
             .replace(/\s+/g, "-")}.jpeg`,
         })),
