@@ -13,7 +13,7 @@ interface CharacterListProps {
 
 const CharacterList: React.FC<CharacterListProps> = ({ showOnlyFavorites }) => {
   const dispatch = useDispatch<AppDispatch>();
-  const { filteredItems, status, error } = useSelector(
+  const { filteredItems, status, error, page } = useSelector(
     (state: RootState) => state.characters
   );
   const favorites = useSelector((state: RootState) => state.favorites.items);
@@ -31,6 +31,9 @@ const CharacterList: React.FC<CharacterListProps> = ({ showOnlyFavorites }) => {
       .map((f) => f.id);
     itemsToShow = filteredItems.filter((item) => favIds.includes(item.id));
   }
+
+  const pageSize = 20;
+  const pagedItems = itemsToShow.slice((page - 1) * pageSize, page * pageSize);
 
   if (status === "loading" || status === "idle") {
     return (
@@ -156,7 +159,7 @@ const CharacterList: React.FC<CharacterListProps> = ({ showOnlyFavorites }) => {
         padding: "2rem 0",
       }}
     >
-      {itemsToShow.map((char) => (
+      {pagedItems.map((char) => (
         <CharacterCard key={char.id || char.name} character={char} />
       ))}
     </Box>

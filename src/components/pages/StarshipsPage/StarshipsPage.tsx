@@ -8,10 +8,13 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import FavoriteToggleButton from "../../common/FavoriteToggleButton/FavoriteToggleButton";
+import Pagination from "../../common/Pagination/Pagination";
 
 const StarshipsPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { search } = useSelector((state: RootState) => state.starships);
+  const { search, page, count } = useSelector(
+    (state: RootState) => state.starships
+  );
   const [showOnlyFavorites, setShowOnlyFavorites] = useState(false);
 
   const handleFavoriteToggle = () => {
@@ -69,11 +72,20 @@ const StarshipsPage: React.FC = () => {
           <FavoriteToggleButton
             isActive={showOnlyFavorites}
             onToggle={handleFavoriteToggle}
-            ariaLabel="Показать только избранное"
+            ariaLabel="Show only favorites"
           />
         </Box>
       </Box>
       <StarshipList showOnlyFavorites={showOnlyFavorites} />
+      {!showOnlyFavorites && (
+        <Pagination
+          count={Math.ceil(count / 20)}
+          page={page}
+          onChange={(_e, value) =>
+            dispatch({ type: "starships/setPage", payload: value })
+          }
+        />
+      )}
     </Container>
   );
 };

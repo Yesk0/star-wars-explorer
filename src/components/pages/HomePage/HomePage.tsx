@@ -11,10 +11,11 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import FavoriteToggleButton from "../../common/FavoriteToggleButton/FavoriteToggleButton";
+import Pagination from "../../common/Pagination/Pagination";
 
 const HomePage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { search } = useSelector(
+  const { search, page, count } = useSelector(
     (state: RootState) => state.characters
   );
   const [showOnlyFavorites, setShowOnlyFavorites] = useState(false);
@@ -78,11 +79,20 @@ const HomePage: React.FC = () => {
           <FavoriteToggleButton
             isActive={showOnlyFavorites}
             onToggle={handleFavoriteToggle}
-            ariaLabel="Показать только избранное"
+            ariaLabel="Show only favorites"
           />
         </Box>
       </Box>
       <CharacterList showOnlyFavorites={showOnlyFavorites} />
+      {!showOnlyFavorites && (
+        <Pagination
+          count={Math.ceil(count / 20)}
+          page={page}
+          onChange={(_e: React.ChangeEvent<unknown>, value: number) =>
+            dispatch({ type: "characters/setPage", payload: value })
+          }
+        />
+      )}
     </Container>
   );
 };

@@ -17,6 +17,7 @@ const StarshipList: React.FC<StarshipListProps> = ({ showOnlyFavorites }) => {
     (state: RootState) => state.starships
   );
   const favorites = useSelector((state: RootState) => state.favorites.items);
+  const pageSize = 20;
 
   useEffect(() => {
     if (status === "idle") {
@@ -31,6 +32,8 @@ const StarshipList: React.FC<StarshipListProps> = ({ showOnlyFavorites }) => {
       .map((f) => f.id);
     itemsToShow = filteredItems.filter((item) => favIds.includes(item.id));
   }
+
+  const pagedItems = itemsToShow.slice((page - 1) * pageSize, page * pageSize);
 
   if (status === "loading" || status === "idle") {
     return (
@@ -156,7 +159,7 @@ const StarshipList: React.FC<StarshipListProps> = ({ showOnlyFavorites }) => {
         padding: "2rem 0",
       }}
     >
-      {itemsToShow.map((starship) => (
+      {pagedItems.map((starship) => (
         <StarshipCard key={starship.id || starship.name} starship={starship} />
       ))}
     </Box>

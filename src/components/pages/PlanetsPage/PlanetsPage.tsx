@@ -8,10 +8,13 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import FavoriteToggleButton from "../../common/FavoriteToggleButton/FavoriteToggleButton";
+import Pagination from "../../common/Pagination/Pagination";
 
 const PlanetsPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { search } = useSelector((state: RootState) => state.planets);
+  const { search, page, count } = useSelector(
+    (state: RootState) => state.planets
+  );
   const [showOnlyFavorites, setShowOnlyFavorites] = useState(false);
 
   const handleFavoriteToggle = () => {
@@ -74,6 +77,15 @@ const PlanetsPage: React.FC = () => {
         </Box>
       </Box>
       <PlanetList showOnlyFavorites={showOnlyFavorites} />
+      {!showOnlyFavorites && (
+        <Pagination
+          count={Math.ceil(count / 20)}
+          page={page}
+          onChange={(_e, value) =>
+            dispatch({ type: "planets/setPage", payload: value })
+          }
+        />
+      )}
     </Container>
   );
 };

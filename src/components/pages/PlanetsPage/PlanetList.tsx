@@ -32,6 +32,9 @@ const PlanetList: React.FC<PlanetListProps> = ({ showOnlyFavorites }) => {
     itemsToShow = filteredItems.filter((item) => favIds.includes(item.id));
   }
 
+  const pageSize = 20;
+  const pagedItems = itemsToShow.slice((page - 1) * pageSize, page * pageSize);
+
   if (status === "loading" || status === "idle") {
     return (
       <Box className="flex justify-center items-center py-20">
@@ -156,7 +159,7 @@ const PlanetList: React.FC<PlanetListProps> = ({ showOnlyFavorites }) => {
         padding: "2rem 0",
       }}
     >
-      {itemsToShow.map((planet) => (
+      {pagedItems.map((planet) => (
         <PlanetCard key={planet.id || planet.name} planet={planet} />
       ))}
     </Box>
