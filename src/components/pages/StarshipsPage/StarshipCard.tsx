@@ -57,6 +57,15 @@ const StarshipCard: React.FC<StarshipCardProps> = ({ starship }) => {
     return id || name;
   };
 
+  const getInitials = (name: string) => {
+    return name
+      .split(" ")
+      .map((word) => word.charAt(0))
+      .join("")
+      .toUpperCase()
+      .slice(0, 2);
+  };
+
   return (
     <Card
       className="sw-card h-full cursor-pointer"
@@ -125,8 +134,18 @@ const StarshipCard: React.FC<StarshipCardProps> = ({ starship }) => {
               marginBottom: 2,
               border: "3px solid #FFD700",
               boxShadow: "0 0 20px rgba(255, 215, 0, 0.3)",
+              fontSize: "1.5rem",
+              fontWeight: "bold",
+              background: "linear-gradient(45deg, #FFD700, #FFA500)",
             }}
-          />
+            imgProps={{
+              onError: (e) => {
+                e.currentTarget.style.display = "none";
+              },
+            }}
+          >
+            {getInitials(starship.name)}
+          </Avatar>
 
           <Typography
             variant="h6"

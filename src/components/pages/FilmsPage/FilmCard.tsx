@@ -17,6 +17,15 @@ const FilmCard: React.FC<FilmCardProps> = ({ film }) => {
     return `/images/films/${imageName}.jpeg`;
   };
 
+  const getInitials = (title: string) => {
+    return title
+      .split(" ")
+      .map((word) => word.charAt(0))
+      .join("")
+      .toUpperCase()
+      .slice(0, 2);
+  };
+
   return (
     <Card
       className="sw-card h-full"
@@ -54,8 +63,18 @@ const FilmCard: React.FC<FilmCardProps> = ({ film }) => {
               marginBottom: 2,
               border: "3px solid #FFD700",
               boxShadow: "0 0 20px rgba(255, 215, 0, 0.3)",
+              fontSize: "1.5rem",
+              fontWeight: "bold",
+              background: "linear-gradient(45deg, #FFD700, #FFA500)",
             }}
-          />
+            imgProps={{
+              onError: (e) => {
+                e.currentTarget.style.display = "none";
+              },
+            }}
+          >
+            {getInitials(film.title)}
+          </Avatar>
 
           <Typography
             variant="h6"
